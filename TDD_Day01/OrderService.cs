@@ -10,6 +10,11 @@ namespace TDD_Day01
     {
         public IEnumerable<Order> OrderList { get; private set; }
 
+        public OrderService()
+        {
+
+        }
+
         public OrderService(IEnumerable<Order> orderList)
         {
             OrderList = orderList;
@@ -28,6 +33,23 @@ namespace TDD_Day01
                 default:
                     list = GetRevenueSum();
                     break;
+            }
+            return list;
+        }
+
+        public IEnumerable<int> GetSumList<T>(IEnumerable<T> objList, Func<T, int> fun, int num) where T : class
+        {
+            var list = new List<int>();
+            int sum = 0;
+            for (int i = 0; i < objList.Count(); i++)
+            {
+                T obj = objList.ElementAt(i);
+                sum += fun(obj);
+                if ((i + 1) % num == 0 || (i + 1) == objList.Count())
+                {
+                    list.Add(sum);
+                    sum = 0;
+                }
             }
             return list;
         }

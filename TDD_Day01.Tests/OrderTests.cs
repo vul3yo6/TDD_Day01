@@ -14,10 +14,11 @@ namespace TDD_Day01.Tests
         {
             //Arrange
             var list = GetInitList();
-            var target = new OrderService(list);
+            var target = new OrderService();
             var expected = new List<int> { 6, 15, 24, 21 };
+
             //Act
-            var actual = target.GetSumList(3);
+            var actual = target.GetSumList<Order>(list, x => x.Cost, 3);
 
             //Assert
             expected.ToExpectedObject().ShouldEqual(actual);
@@ -29,15 +30,48 @@ namespace TDD_Day01.Tests
         {
             //Arrange
             var list = GetInitList();
-            var target = new OrderService(list);
+            var target = new OrderService();
             var expected = new List<int> { 50, 66, 60 };
+
             //Act
-            var actual = target.GetSumList(4);
+            var actual = target.GetSumList<Order>(list, x => x.Revenue, 4);
 
             //Assert
             expected.ToExpectedObject().ShouldEqual(actual);
             CollectionAssert.AreEqual(expected, actual.ToList());
         }
+
+        //[TestMethod]
+        //public void GetSumTest_WhenPass3_ReturnCostSum()
+        //{
+        //    //Arrange
+        //    var list = GetInitList();
+        //    var target = new OrderService(list);
+        //    var expected = new List<int> { 6, 15, 24, 21 };
+
+        //    //Act
+        //    var actual = target.GetSumList(3);
+
+        //    //Assert
+        //    expected.ToExpectedObject().ShouldEqual(actual);
+        //    CollectionAssert.AreEqual(expected, actual.ToList());
+        //}
+
+        //[TestMethod]
+        //public void GetSumTest_WhenPass4_ReturnRevenueSum()
+        //{
+        //    //Arrange
+        //    var list = GetInitList();
+        //    var target = new OrderService(list);
+        //    var expected = new List<int> { 50, 66, 60 };
+
+        //    //Act
+        //    var actual = target.GetSumList(4);
+
+        //    //Assert
+        //    expected.ToExpectedObject().ShouldEqual(actual);
+        //    CollectionAssert.AreEqual(expected, actual.ToList());
+        //}
 
         private IEnumerable<Order> GetInitList()
         {
